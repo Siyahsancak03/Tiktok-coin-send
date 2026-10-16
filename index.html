@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Coin Exchange</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f3f3;color:#252525;font-family:Arial,Helvetica,sans-serif}
+.status{height:25px;padding:5px 14px;font-size:11px;color:#444;display:flex;justify-content:space-between}
+.phone{max-width:430px;min-height:calc(100vh - 25px);margin:auto;background:#fff;overflow:hidden;position:relative}
+.nav{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 18px}.back{font-size:26px;color:#555}.navtitle{font-size:14px;font-weight:500;color:#555}.share{font-size:17px;color:#777}
+.content{padding:9px 19px 18px}.toplabel{text-align:center;font-size:12px;color:#555;margin-top:1px}
+.balance{text-align:center;font-size:31px;letter-spacing:-.8px;font-weight:500;margin:7px 0 3px;white-space:nowrap}
+.conversion{text-align:center;font-size:10px;color:#e57996;margin-bottom:4px}
+.smallmuted{text-align:center;font-size:9px;color:#bbb;margin-bottom:20px}
+.fieldlabel{font-size:11px;color:#777;margin:0 0 6px 2px}
+.userrow{height:40px;display:flex;align-items:center;border-bottom:1px solid #eee;gap:8px}
+.usericon{color:#bcbcbc;font-size:16px}.username{flex:1;border:0;outline:0;font-size:12px;color:#333;min-width:0}
+.search{border:0;background:transparent;color:#bf6c83;font-size:11px;padding:8px 2px}
+
+.profile-result{display:flex;align-items:center;gap:10px;padding:11px 2px 2px}
+.profile-avatar{width:42px;height:42px;flex:0 0 42px;border-radius:50%;background:linear-gradient(135deg,#f6c85f,#ed7b9a 55%,#9b7cf5);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;box-shadow:0 1px 4px #0002}
+.profile-avatar-img{width:42px;height:42px;flex:0 0 42px;border-radius:50%;object-fit:cover;box-shadow:0 1px 4px #0002}
+.photo-pick{border:1px solid #e8a4b6;background:#fff;color:#bf6c83;border-radius:14px;padding:5px 8px;font-size:10px}
+.profile-meta{flex:1;min-width:0}.profile-name{font-size:12px;font-weight:600;color:#333;overflow-wrap:anywhere}.profile-caption{font-size:10px;color:#aaa;margin-top:3px}.profile-check{color:#20b86a;font-size:18px;font-weight:700}
+.sectiontitle{font-size:12px;color:#555;margin:24px 0 12px}
+.packages{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.pack{border:1px solid transparent;border-radius:10px;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;color:#333}
+.pack.active{border-color:#e8a4b6;box-shadow:0 0 0 1px #f5e1e7}
+.gold{width:13px;height:13px;border-radius:50%;background:#f5d45c;color:#b48715;font-size:8px;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.qty{font-size:13px;margin-bottom:3px}.price{font-size:9px;color:#999}
+.customlabel{font-size:10px;color:#bdbdbd;margin:13px 0 8px}
+.custom{width:100%;height:34px;border:1px solid #eee;border-radius:7px;padding:0 10px;font-size:12px;outline:none}
+.terms{font-size:9px;line-height:1.48;color:#b4b4b4;margin:14px 1px 16px}
+.terms strong{font-weight:500;color:#999;text-decoration:underline}
+.continue{width:100%;height:39px;border:0;border-radius:5px;background:#e72f55;color:white;font-size:11px;font-weight:600}
+.result{display:none;min-height:calc(100vh - 69px);padding:24px 22px 18px;position:relative;background:#fff}
+.success-icon{height:66px;width:66px;border-radius:50%;background:#22c55e;color:white;display:flex;align-items:center;justify-content:center;font-size:38px;margin:3px auto 16px}
+.result h1{text-align:center;font-size:23px;margin:0 0 6px;font-weight:700;letter-spacing:-.4px}
+.subtitle{text-align:center;font-size:12px;line-height:1.45;color:#888;margin:0 auto 30px;max-width:300px}
+.detail{display:flex;justify-content:space-between;gap:12px;font-size:12px;margin:0 0 22px;align-items:flex-start}
+.detail .key{color:#aaa;flex:1}.detail .val{font-weight:600;text-align:right;max-width:60%;overflow-wrap:anywhere}
+.greenbutton{position:absolute;left:19px;right:19px;bottom:18px;height:42px;border:0;border-radius:5px;background:#25b86a;color:white;font-size:12px;font-weight:600}
+.balance-note{font-size:9px;color:#999;text-align:center;margin-top:9px}
+</style></head><body>
+<div class="status"><span>3:31</span><span>● ● ▮ ▴ ▰</span></div>
+<main class="phone">
+<section id="formScreen">
+<header class="nav"><span class="back">‹</span><span class="navtitle">Exchange</span><span class="share">↗</span></header>
+<div class="content">
+<div class="toplabel">TikTok Coin Balance</div>
+<div class="balance" id="balance">$50,000,000.00</div>
+<div class="conversion" id="balanceValue">≈ 50,000,000.00 USD</div>
+<div class="smallmuted">&nbsp;</div>
+<div class="fieldlabel">TikTok username</div>
+<div class="userrow"><span class="usericon">◎</span><input id="username" class="username" placeholder="@username" autocomplete="off"><button class="search" onclick="searchUser()">Search</button></div>
+<div id="profileResult" class="profile-result" style="display:none">
+  <img id="profileAvatarImg" class="profile-avatar-img" alt="Selected profile photo" style="display:none">
+  <div id="profileAvatar" class="profile-avatar">U</div>
+  <div class="profile-meta"><div id="profileName" class="profile-name">@username</div><div class="profile-caption">Profile preview</div></div>
+  <button class="photo-pick" onclick="document.getElementById('profilePhotoInput').click()">Photo</button>
+  <span class="profile-check">✓</span>
+</div>
+<input id="profilePhotoInput" type="file" accept="image/*" style="display:none" onchange="setProfilePhoto(event)">
+<div class="sectiontitle">Exchange earnings for Coins</div>
+<div class="packages">
+<button class="pack active" data-qty="250" data-price="$2.63" onclick="selectPack(this)"><span class="gold">C</span><span class="qty">250</span><span class="price">$2.63</span></button>
+<button class="pack" data-qty="500" data-price="$5.25" onclick="selectPack(this)"><span class="gold">C</span><span class="qty">500</span><span class="price">$5.25</span></button>
+<button class="pack" data-qty="15000" data-price="$157.50" onclick="selectPack(this)"><span class="gold">C</span><span class="qty">15,000</span><span class="price">$157.50</span></button>
+</div>
+<div class="customlabel">Enter a custom number of coins</div>
+<input id="custom" class="custom" type="number" min="1" placeholder="Custom coin amount">
+<div class="terms">By continuing, you agree to the <strong>Virtual Items Policy</strong>.</div>
+<button class="continue" onclick="continueDemo()">Continue</button>
+
+</div></section>
+<section id="resultScreen" class="result">
+<div class="success-icon">✓</div>
+<h1>Exchange Completed!</h1>
+<p class="subtitle" id="subtitle">You exchanged for 🟡 250 Coins</p>
+<div class="detail"><span class="key">Recipient</span><span class="val" id="resultUser">@username</span></div>
+<div class="detail"><span class="key">Coins Exchanged</span><span class="val" id="resultCoins">250 Coins</span></div>
+<div class="detail"><span class="key">Deducted Amount</span><span class="val" id="resultPrice">$2.63</span></div>
+<div class="detail"><span class="key">Remaining Balance</span><span class="val" id="remaining">24,750 Coins</span></div>
+
+<button class="greenbutton" onclick="goBack()">‹ &nbsp; Go Back</button>
+</section>
+</main>
+<script>
+let selected=250, selectedPrice='$2.63', coinBalance=50000000;
+function fmt(n){return Number(n).toLocaleString('en-US')}
+function renderBalance(){document.getElementById('balance').textContent='$'+Number(coinBalance).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});document.getElementById('balanceValue').textContent='≈ '+Number(coinBalance).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})+' USD'}
+function selectPack(el){document.querySelectorAll('.pack').forEach(x=>x.classList.remove('active'));el.classList.add('active');selected=Number(el.dataset.qty);selectedPrice=el.dataset.price;document.getElementById('custom').value=''}
+function searchUser(){
+ const raw=document.getElementById('username').value.trim();
+ if(!raw){alert('Please enter a username.');document.getElementById('profileResult').style.display='none';return}
+ const u=raw.startsWith('@')?raw:'@'+raw;
+ document.getElementById('profileName').textContent=u;
+ document.getElementById('profileAvatar').textContent=(raw.replace(/^@/,'').charAt(0)||'U').toUpperCase();
+ document.getElementById('profileResult').style.display='flex';
+}
+function setProfilePhoto(event){
+ const file=event.target.files && event.target.files[0];
+ if(!file)return;
+ if(!file.type.startsWith('image/')){alert('Choose an image file.');return}
+ const url=URL.createObjectURL(file);
+ const img=document.getElementById('profileAvatarImg');
+ img.src=url; img.style.display='block';
+ document.getElementById('profileAvatar').style.display='none';
+}
+function continueDemo(){
+ const user=document.getElementById('username').value.trim();
+ const custom=Number(document.getElementById('custom').value);
+ const qty=custom>0?custom:selected;
+ if(!user){alert('Please enter a TikTok username.');return}
+ if(qty>coinBalance){alert('Insufficient coin balance.');return}
+ const price=custom>0?'Custom amount':selectedPrice;
+ coinBalance-=qty;
+ renderBalance();
+ document.getElementById('resultUser').textContent=user.startsWith('@')?user:'@'+user;
+ document.getElementById('resultCoins').textContent=fmt(qty)+' Coins';
+ document.getElementById('resultPrice').textContent=price;
+ document.getElementById('remaining').textContent='$'+Number(coinBalance).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+ document.getElementById('subtitle').textContent='You exchanged for 🟡 '+fmt(qty)+' Coins';
+ document.getElementById('formScreen').style.display='none';
+ document.getElementById('resultScreen').style.display='block';
+}
+function goBack(){document.getElementById('resultScreen').style.display='none';document.getElementById('formScreen').style.display='block'}
+</script></body></html>
